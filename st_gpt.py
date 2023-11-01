@@ -32,7 +32,7 @@ content_kind_of =[
 # chatGPTにリクエストするためのメソッドを設定。引数には書いてほしい内容と文章のテイストと最大文字数を指定
 def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to_gpt_pc2,content_text_to_gpt_pc3,content_kind_of_to_gpt):
     # リクエスト内容を決める
-    request_to_gpt = "次の３台のパソコンのスペックを比較して、一番おススメのパソコンの型番と名称を回答の一番上に表示してください。なお、主な利用用途は" + content_text_to_gpt_mokuteki + "です。" + "１つ目のパソコンは" + content_text_to_gpt_pc1 + "２つ目のパソコンは" + content_text_to_gpt_pc2 + "３つ目のパソコンは" + content_text_to_gpt_pc3 + "です。また、文章は" + content_kind_of_to_gpt + "にしてください。"
+    request_to_gpt = "次の３台のパソコンのスペックを比較して、一番おススメのパソコンの型番と名称を回答の一番上に表示してください。価格とスペックを比較する文章としてください。なお、主な利用用途は" + content_text_to_gpt_mokuteki + "です。" + "１つ目のパソコンは" + content_text_to_gpt_pc1 + "２つ目のパソコンは" + content_text_to_gpt_pc2 + "３つ目のパソコンは" + content_text_to_gpt_pc3 + "です。また、文章は" + content_kind_of_to_gpt + "にしてください。"
     
     # 決めた内容を元にopenai.ChatCompletion.createでchatGPTにリクエスト。オプションとしてmodelにAIモデル、messagesに内容を指定
     response = openai.ChatCompletion.create(
@@ -46,9 +46,6 @@ def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to
     output_content = response.choices[0]["message"]["content"].strip()
     return output_content # 返って来たレスポンスの内容を返す
 
-    #時間の提議
-    time.sleep(5)  # 5秒待つ
-    return "処理が完了しました！"
 
 st.title('GPTにPCのスペックを比較してもらうアプリ')# タイトル
 
@@ -64,13 +61,20 @@ content_kind_of_to_gpt = st.sidebar.selectbox("文章の種類",options=content_
 # 「実行」ボタンが押されたら、run_gpt関数を実行する　処理中にメッセージと画像を表示する
 
 if st.sidebar.button('実行'):
-    with st.empty():
-        # 処理中の画像を表示
-        st.image("https://assets.st-note.com/production/uploads/images/112078423/5d47fc150315f1fa27c5efed19c704c9.png?crop=1.6%3A0.27&quality=60&quot;")
-        st.markdown("### 処理中です...")
-        
-        output_content_text = run_gpt(content_text_to_gpt_mokuteki, content_text_to_gpt_pc1, content_text_to_gpt_pc2, content_text_to_gpt_pc3, content_kind_of_to_gpt)
-        
+    # 処理中の画像とテキスト用のエリアを作成
+    image_area = st.empty()
+    text_area = st.empty()
+
+    # 処理中の画像とテキストを表示
+    image_area.image("https://assets.st-note.com/production/uploads/images/112078423/5d47fc150315f1fa27c5efed19c704c9.png?crop=1.6%3A0.27&quality=60&quot;")
+    text_area.markdown("### 処理中です...")
+
+    output_content_text = run_gpt(content_text_to_gpt_mokuteki, content_text_to_gpt_pc1, content_text_to_gpt_pc2, content_text_to_gpt_pc3, content_kind_of_to_gpt)
+    
+    # 処理中の画像とテキストを消去
+    image_area.empty()
+    text_area.empty()
+
     st.success('処理が完了しました！')
     st.write(output_content_text)
 else:
