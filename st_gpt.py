@@ -4,7 +4,7 @@ import openai # openAIのchatGPTのAIを活用するための機能をインポ�
 
 # アクセスの為のキーをopenai.api_keyに代入し、設定
 # ここにご自身のAPIキーを入力してください！
-openai.api_key = db_openaiAPI
+openai.api_key = st.secrets["openaikey"]
 
 content_kind_of =[
     "中立的で客観的な文章",
