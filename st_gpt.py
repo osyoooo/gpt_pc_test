@@ -29,7 +29,7 @@ content_kind_of =[
 ]
 
 # chatGPTにリクエストするためのメソッドを設定。引数には書いてほしい内容と文章のテイストと最大文字数を指定
-def run_gpt(content_text_to_gpt,content_kind_of_to_gpt,content_maxStr_to_gpt):
+def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to_gpt_pc2,content_text_to_gpt_pc3,content_kind_of_to_gpt):
     # リクエスト内容を決める
     "次の３台のパソコンのスペックを比較して、一番おススメのパソコンの型番と名称を回答の一番上に表示してください。なお、主な利用用途は" + content_text_to_gpt_mokuteki + "です。" + "１つ目のパソコンは" + content_text_to_gpt_pc1 + "２つ目のパソコンは" + content_text_to_gpt_pc2 + "３つ目のパソコンは" + content_text_to_gpt_pc3 + "です。"
     
@@ -56,5 +56,5 @@ content_text_to_gpt_pc3 = st.sidebar.text_input("3つ目のPC情報")
 # 書かせたい内容のテイストを選択肢として表示する
 content_kind_of_to_gpt = st.sidebar.selectbox("文章の種類",options=content_kind_of)
 
-output_content_text = run_gpt(content_text_to_gpt,content_kind_of_to_gpt,content_maxStr_to_gpt)
+output_content_text = run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to_gpt_pc2,content_text_to_gpt_pc3,content_kind_of_to_gpt)
 st.write(output_content_text)
