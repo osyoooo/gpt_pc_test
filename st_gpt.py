@@ -31,7 +31,7 @@ content_kind_of =[
 # chatGPTにリクエストするためのメソッドを設定。引数には書いてほしい内容と文章のテイストと最大文字数を指定
 def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to_gpt_pc2,content_text_to_gpt_pc3,content_kind_of_to_gpt):
     # リクエスト内容を決める
-    "次の３台のパソコンのスペックを比較して、一番おススメのパソコンの型番と名称を回答の一番上に表示してください。なお、主な利用用途は" + content_text_to_gpt_mokuteki + "です。" + "１つ目のパソコンは" + content_text_to_gpt_pc1 + "２つ目のパソコンは" + content_text_to_gpt_pc2 + "３つ目のパソコンは" + content_text_to_gpt_pc3 + "です。"
+    "次の３台のパソコンのスペックを比較して、一番おススメのパソコンの型番と名称を回答の一番上に表示してください。なお、主な利用用途は" + content_text_to_gpt_mokuteki + "です。" + "１つ目のパソコンは" + content_text_to_gpt_pc1 + "２つ目のパソコンは" + content_text_to_gpt_pc2 + "３つ目のパソコンは" + content_text_to_gpt_pc3 + "です。また、文章は" + content_kind_of_to_gpt + "にしてください。"
     
     # 決めた内容を元にopenai.ChatCompletion.createでchatGPTにリクエスト。オプションとしてmodelにAIモデル、messagesに内容を指定
     response = openai.ChatCompletion.create(
