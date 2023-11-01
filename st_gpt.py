@@ -45,7 +45,7 @@ def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to
     output_content = response.choices[0]["message"]["content"].strip()
     return output_content # 返って来たレスポンスの内容を返す
 
-st.title('GPTに記事書かせるアプリ')# タイトル
+st.title('GPTにPCのスペックを比較してもらうアプリ')# タイトル
 
 # 書かせたい内容
 content_text_to_gpt_mokuteki = st.sidebar.text_input("PCの主な利用用途を教えてください")
@@ -56,5 +56,9 @@ content_text_to_gpt_pc3 = st.sidebar.text_input("3つ目のPC情報")
 # 書かせたい内容のテイストを選択肢として表示する
 content_kind_of_to_gpt = st.sidebar.selectbox("文章の種類",options=content_kind_of)
 
-output_content_text = run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to_gpt_pc2,content_text_to_gpt_pc3,content_kind_of_to_gpt)
-st.write(output_content_text)
+# 「実行」ボタンが押されたら、run_gpt関数を実行する
+if st.sidebar.button('実行'):
+    output_content_text = run_gpt(content_text_to_gpt_mokuteki, content_text_to_gpt_pc1, content_text_to_gpt_pc2, content_text_to_gpt_pc3, content_kind_of_to_gpt)
+    st.write(output_content_text)
+else:
+    st.write("サイドバーの項目を入力し、「実行」ボタンを押してください。")
