@@ -1,6 +1,6 @@
 import streamlit as st # フロントエンドを扱うstreamlitの機能をインポート
 import openai # openAIのchatGPTのAIを活用するための機能をインポート
-
+import time
 
 # アクセスの為のキーをopenai.api_keyに代入し、設定
 # ここにご自身のAPIキーを入力してください！
@@ -45,6 +45,10 @@ def run_gpt(content_text_to_gpt_mokuteki,content_text_to_gpt_pc1,content_text_to
     output_content = response.choices[0]["message"]["content"].strip()
     return output_content # 返って来たレスポンスの内容を返す
 
+    #時間の提議
+    time.sleep(5)  # 5秒待つ
+    return "処理が完了しました！"
+
 st.title('GPTにPCのスペックを比較してもらうアプリ')# タイトル
 
 # 書かせたい内容
@@ -56,9 +60,13 @@ content_text_to_gpt_pc3 = st.sidebar.text_input("3つ目のPC情報")
 # 書かせたい内容のテイストを選択肢として表示する
 content_kind_of_to_gpt = st.sidebar.selectbox("文章の種類",options=content_kind_of)
 
-# 「実行」ボタンが押されたら、run_gpt関数を実行する
+# 「実行」ボタンが押されたら、run_gpt関数を実行する　処理中にメッセージと画像を表示する
+
 if st.sidebar.button('実行'):
-    output_content_text = run_gpt(content_text_to_gpt_mokuteki, content_text_to_gpt_pc1, content_text_to_gpt_pc2, content_text_to_gpt_pc3, content_kind_of_to_gpt)
-    st.write(output_content_text)
+    with st.empty():  # 空のプレースホルダーを作成
+        st.write("処理中です...")  # 処理中のメッセージを表示
+        st.image("https://assets.st-note.com/production/uploads/images/112078423/5d47fc150315f1fa27c5efed19c704c9.png?crop=1.6%3A0.27&quality=60&quot;")  # 処理中に表示する画像
+        output_content_text = run_gpt(content_text_to_gpt_mokuteki, content_text_to_gpt_pc1, content_text_to_gpt_pc2, content_text_to_gpt_pc3, content_kind_of_to_gpt)
+        st.write(output_content_text)  # 処理が終わったら結果を表示
 else:
     st.write("サイドバーの項目を入力し、「実行」ボタンを押してください。")
