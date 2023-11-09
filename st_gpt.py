@@ -1,6 +1,6 @@
 import streamlit as st # フロントエンドを扱うstreamlitの機能をインポート
 import openai # openAIのchatGPTのAIを活用するための機能をインポート
-import time
+# import time
 
 # アクセスの為のキーをopenai.api_keyに代入し、設定
 # ここにご自身のAPIキーを入力してください！
